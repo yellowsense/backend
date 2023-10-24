@@ -1,0 +1,121 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<head>
+    <title>Matching Providers</title>
+</head>
+<body>
+    <h1>Matching Service Providers</h1>
+    <h2>Customer: {{ customer_instance.customer_name }}</h2>
+    <h3>selected_service: {{ selected_service }}</h3>
+    <form method="post" action="{% url 'book_provider' %}" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <input type="hidden" name="selected_service" value="{{ selected_service }}">
+        <input type="hidden" name="customer_id" value="{{ customer_instance.id }}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Contact No</th>
+                    <th>Availability</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for provider in providers %}
+                <tr>
+                    <td>{{ provider.name }}</td>
+                    <td>{{ provider.gender }}</td>
+                    <td>{{ provider.contact }}</td>
+                    <td>
+                        {% if provider.available %}
+                            <span style="color: green;">Available</span>
+                        {% else %}
+                            <span style="color: red;">Unavailable</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <input type="radio" name="selected_provider" value="{{ provider.id }}" data-available="{{ provider.available }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Book</button>
+        <button type="button" id="make-available-button">Make Available</button>
+    </form>
+
+    <!-- ... (previous code) ... -->
+
+<script>
+     // Get all the provider radio buttons
+     var providerRadios = document.getElementsByName('selected_provider');
+
+// Function to handle the "Make Available" button click
+document.getElementById('make-available-button').addEventListener('click', function () {
+    var providerSelected = false;
+    var unavailableProviderSelected = false;
+
+    for (var i = 0; i < providerRadios.length; i++) {
+        if (providerRadios[i].checked) {
+            providerSelected = true;
+            var providerAvailability = providerRadios[i].getAttribute('data-available');
+
+            if (providerAvailability === 'False') {
+                // Mark the provider as available
+                providerRadios[i].setAttribute('data-available', 'True');
+                // Update the displayed availability
+                var availabilitySpan = providerRadios[i].closest('tr').querySelector('td span');
+                availabilitySpan.style.color = 'green';
+                availabilitySpan.textContent = 'Available';
+            } else {
+                // Show a message if the provider is already available
+                alert('Provider is already available.');
+                return;
+            }
+
+            break;
+        }
+    }
+
+        if (!providerSelected) {
+            alert('Please select a provider before making available.');
+        }
+    });
+    function validateForm() {
+        var providerSelected = false;
+        var providerRadios = document.getElementsByName('selected_provider');
+        var unavailableProviderSelected = false;
+        
+        for (var i = 0; i < providerRadios.length; i++) {
+            if (providerRadios[i].checked) {
+                providerSelected = true;
+                
+                var providerAvailability = providerRadios[i].getAttribute('data-available');
+                if (providerAvailability === 'False') {
+                    unavailableProviderSelected = true;
+                }
+                
+                break;
+            }
+        }
+
+        if (!providerSelected) {
+            alert('Please select a provider before submitting.');
+            return false;
+        }
+        
+        if (unavailableProviderSelected) {
+            alert('Provider not available.');
+            return false;
+        }
+        
+        return true;
+    }
+</script>
+
+<!-- ... (rest of the code) ... -->
+
+</body>
+{% endblock content %}

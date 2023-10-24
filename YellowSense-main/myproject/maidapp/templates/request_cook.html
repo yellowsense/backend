@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+<h1 style="text-decoration: underline;">Cook Request</h1>
+<body>
+    <form action="{% url 'add_customer' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="selected_service" value="cook">
+        <!-- Customer Details Section -->
+        <fieldset>
+            <h2>Customer Details</h2> <br>
+            <label for="society_name">Society Name:</label>
+            <select id="society_name" name="society_name" required>
+                <option value="" disabled selected>Select Society</option>
+                <option value="Society 1">Society 1</option>
+                <option value="Society 2">Society 2</option>
+                <option value="Society 3">Society 3</option>
+                <!-- Add more society options here -->
+            </select><br>
+
+            <label for="preferred_gender">Preferred Gender:</label>
+            <select id="preferred_gender" name="preferred_gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="any">Any</option>
+            </select>
+            <br />
+
+            <label for="customer_name">Your Name:</label>
+            <input type="text" id="customer_name" name="customer_name" required><br>
+
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" required><br>
+
+            <label for="timings">Preferred Timings:</label>
+            <input type="time" id="timings_from" name="timings_from" required> to
+            <input type="time" id="timings_to" name="timings_to" required><br>
+            <br>
+
+            <label>Add Ons:</label>
+            <input type="radio" id="include-dish-washing" name="add_ons" value="Include-Dish-Washing" required />
+            <label for="include-dish-washing">Include Dish-Washing</label><br />
+        
+            <input type="radio" id="not-include-dish-washing" name="add_ons" value="Not-Include-Dish-Washing" />
+            <label for="not-include-dish-washing">Not Include Dish-Washing</label><br />
+        
+            <label for="number_of_people">For how many people?</label>
+            <input type="number" id="number_of_people" name="number_of_people" min="1" required /><br />
+
+            <label for="meals_per_day">How many meals per day?</label>
+            <input type="number" id="meals_per_day" name="meals_per_day" min="1" required /><br />
+
+            <label for="veg_or_non_veg">Veg/Non Veg?</label>
+            <select id="veg_or_non_veg" name="veg_or_non_veg" required>
+                <option value="Veg">Veg</option>
+                <option value="Non-Veg">Non-Veg</option>
+                <option value="Both">Both</option>
+            </select><br />
+
+            <label for="cooking_specialty">Cooking Specialty:</label>
+            <input type="text" id="cooking_specialty" name="cooking_specialty" /><br />
+            
+            <label for="additional_requirements">Additional Requirements:</label>
+            <textarea id="additional_requirements" name="additional_requirements" rows="3"></textarea><br>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit Request</button>
+    </form>
+</body>
+{% endblock content %}

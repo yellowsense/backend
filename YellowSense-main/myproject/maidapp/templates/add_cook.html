@@ -1,0 +1,123 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<head>
+    <title>Service Provider Details</title>
+</head>
+<h1 style="text-decoration: underline;">Service Provider Details</h1>
+
+<body>
+    <form action="{% url 'add_cook' %}" method="post">
+        {% csrf_token %}
+        <!-- Maid Details Section -->
+        <fieldset>
+            <h2 >Cook Details</h2>
+            <div id="commonquestions">
+                <label for="society_name">Society Name:</label>
+                <select id="society_name" name="society_name" required>
+                    <option value="" disabled selected>Select Society</option>
+                    <option value="Society 1">Society 1</option>
+                    <option value="Society 2">Society 2</option>
+                    <option value="Society 3">Society 3</option>
+                    <!-- Add more society options here -->
+                </select><br>
+                
+                <label for="Name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <br />
+            
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <br />
+            
+                <label for="contact">Contact Number:</label>
+                <input type="tel" id="contact" name="contact" required>
+                <br />
+
+                <label for="Country">Country:</label>
+                <input type="tel" id="country" name="country" required>
+                <br />
+            
+                <label for="Availability">Available From:</label>
+                <input type="date" id="start_date" name="start_date" required /><br />
+                <br />
+            
+                <label for="preferred_time_range">Preferred Timings:</label>
+                <input type="time" id="preferred_time_range_start" name="preferred_time_range_start" required>
+                <span> to </span>
+                <input type="time" id="preferred_time_range_end" name="preferred_time_range_end" required>
+                <br />
+            
+                <br />
+                <label for="cost_per_day">Cost per Day (in Rs):</label>
+                <input type="number" id="cost_per_day" name="cost_per_day" required><br>
+                <br />
+            
+                <label for="cost_per_month">Cost per Month (in Rs):</label>
+                <input type="number" id="cost_per_month" name="cost_per_month" required><br>
+                <br />
+
+                <div id="cookQuestions">
+                    <label for="cooking_options">Cooking Options:</label>
+                    <select id="cooking_options" name="cooking_options" required>
+                        <option value="" disabled selected>Select Cooking Options</option>
+                        <option value="Veg">Veg</option>
+                        <option value="Non-Veg">Non-Veg</option>
+                        <option value="Both">Both</option>
+                    </select><br>
+        
+                    <label for="specialty">Specialty:</label>
+                    <input type="text" id="specialty" name="specialty" required><br>
+                </div>
+
+                <label for="sunday_availability">Sunday Availability:</label>
+                <div class="radio-group">
+                    <input type="radio" id="sunday_yes" name="sunday_availability" value="Yes" required>
+                    <label for="sunday_yes">Yes</label>
+                    <input type="radio" id="sunday_no" name="sunday_availability" value="No" required>
+                    <label for="sunday_no">No</label><br>
+                </div>
+                <br />
+            
+                <label>Languages:</label><br>
+                <div class="language-options">
+                    <input type="checkbox" id="language_hindi" name="languages" value="Hindi">
+                    <label for="language_hindi">Hindi</label><br>
+            
+                    <input type="checkbox" id="language_english" name="languages" value="English">
+                    <label for="language_english">English</label><br>
+            
+                    <input type="checkbox" id="language_tamil" name="languages" value="Tamil">
+                    <label for="language_tamil">Tamil</label><br>
+            
+                    <input type="checkbox" id="language_kannada" name="languages" value="Kannada">
+                    <label for="language_kannada">Kannada</label><br>
+            
+                    <input type="checkbox" id="language_telugu" name="languages" value="Telugu">
+                    <label for="language_telugu">Telugu</label><br>
+            
+                    <input type="checkbox" id="language_other" name="languages" value="Other">
+                    <label for="language_other">Other (Please specify):</label>
+                    <input type="text" id="other_language" name="other_language"><br>
+                </div>
+            
+                <br />
+                <label for="experience">Experience:</label>
+                <input type="text" id="experience" name="experience" required><br>
+            
+                <br />
+                <label for="additional_details">Additional Details:</label>
+                <textarea id="additional_details" name="additional_details" rows="3"></textarea><br>
+            </div>
+            
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+{% endblock content %}
